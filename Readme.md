@@ -224,23 +224,24 @@ delivery = {
 
 <br>
 
-
 ## API Endpoints (backend routes)
 
 | HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
 | ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
 | GET         | `/api/laundry`           | All laundryitems                | 200            | 404          | Gives all laundry items           |
-| GET         | `/api/order/availability`           | Gets availability   | 200            | 404          | Adjusts calendar with availability           |
-| POST        | `/api/order`                | Posts order in db      | 201            | 404          | Checks if fields not empty (422)                            |
-| POST        | `/api/user/:id/edit`        | Edits user      | 201            | 404          | Checks if fields not empty (422)                            |
-| POST        | `/api/signin`        | {email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
-| POST        | `/api/signup`        | {username, email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
-| POST        | `/api/admin/signup`        | {email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
 | POST        | `/api/laundry/create`        | Create new laundryitem      | 201            | 404          | Checks if fields not empty (422)                            |
 | PUT        | `/api/laundry/:id/edit`        | Edit laundryitem      | 201            | 404          | Checks if fields not empty (422)                            |
 | DELETE        | `/api/laundry/:id/delete`        | Delete laundryitem      | 201            | 404          |                    |
+| POST        | `/api/order`                | Posts order in db      | 201            | 404          | Checks if fields not empty (422)                            |
 | GET        | `/api/orders`        | Get all orders      | 201            | 404          |                    |
 | PUT        | `/api/order/:id/edit`        | Edit order      | 201            | 404          | Checks if fields not empty (422)                    |
+| GET         | `/api/orders/availability`           | Gets availability   | 200            | 404          | Adjusts calendar with availability           |
+| POST        | `/api/signin`        | {email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/signup`        | {username, email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
+| GET        | `/api/user`        | user      | 200            | 404          | Gets user                         |
+| POST        | `/api/logout`        | Logout user      | 200            | 404          | Logout user                         |
+| POST        | `/api/user/:id/edit`        | Edits user      | 201            | 404          | Checks if fields not empty (422)                            |
+| POST        | `/api/admin/signup`        | {email, password}      | 201            | 404          | Checks if fields not empty (422)                            |
 
 <br>
 
