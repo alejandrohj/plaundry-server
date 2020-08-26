@@ -169,10 +169,10 @@ order = {
 
 Laundry-item Model
 ```javascript
-laundryItem = {
+laundry = {
   category: {
     type: String,
-    enum: [clothing, bedding, towels, business, 6kg],
+    enum: [clothing, bedding, towels, business, bag],
     required: true
   },
   name: {
