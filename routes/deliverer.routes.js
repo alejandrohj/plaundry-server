@@ -43,7 +43,7 @@ router.post('/deliverer/signin', (req, res) => {
           }).catch(() => {
             res.status(500)
               .json({
-                error: 'Email not correct'
+                error: 'Password don\'t match, please try again'
               })
             return;
           });
@@ -53,12 +53,6 @@ router.post('/deliverer/signin', (req, res) => {
         })
         return;
       });
-})
-
-router.post('/logout', (req, res) => {
-  req.session.destroy();
-  res.status(204)
-    .send();
 })
 
 module.exports = router;

@@ -9,7 +9,7 @@ const { isLoggedIn } = require('../helpers/auth-helper');
 router.post('/signup', (req, res) => {
   const {username, email, password} = req.body;
 
-  if (!uername || !email || !password) {
+  if (!username || !email || !password) {
     res.status(500)
       .json({
         errorMessage: 'Please enter username, email and password'
@@ -50,7 +50,7 @@ router.post('/signup', (req, res) => {
                 if (err.code === 11000) {
                   res.status(500)
                     .json({
-                      errorMessage: 'Username or email entered already exists!'
+                      errorMessage: 'Username or email already exists!'
                     });
                   return;  
                 } 
@@ -62,7 +62,7 @@ router.post('/signup', (req, res) => {
                   return; 
                 }
               })
-          });  
+          })  
     });
 
 })
@@ -99,7 +99,7 @@ router.post('/signin', (req, res) => {
             else {
               res.status(500)
                 .json({
-                  error: 'Password don\'t match, please try again'
+                  error: 'Password doesn\'t match, please try again'
                 })
               return;
             }
@@ -121,7 +121,7 @@ router.post('/signin', (req, res) => {
 router.post('/logout', (req, res) => {
   req.session.destroy();
   res.status(204)
-    .send();
+    .send()
 })
 
 router.get('/user', isLoggedIn, (req, res, next) => {
@@ -129,8 +129,8 @@ router.get('/user', isLoggedIn, (req, res, next) => {
 });
 
 router.post('/user/:id/edit', isLoggedIn, (req, res) => {
-  const {address, postal, city, firstName, lastName} = req.body;
-  UserModel.findByIdAndUpdate(req.params.id, {$set: {firstName: firstName, lastName: lastName, address: address, postal: postal, city: city}})
+  const {firstName, lastName, address, postal, city} = req.body;
+  UserModel.findByIdAndUpdate(req.params.id, {$set: {firstName, lastName, address, postal, city}})
     .then((user) => {
       res.status(200).json(user)
     }).catch((err) => {

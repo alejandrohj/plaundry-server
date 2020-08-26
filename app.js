@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./configs/database.config')
 
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -9,8 +10,9 @@ const logger       = require('morgan');
 const path         = require('path');
 const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
-const app = express();
-const cors = require('cors')
+const app          = express();
+const cors         = require('cors')
+
 
 app.use(session({
   secret: 'plaundry-project',
@@ -51,6 +53,8 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+const index = require('./routes/index');
+app.use('/', index);
 
 const authRoutes = require('./routes/auth.routes')
 app.use('/api', authRoutes);
@@ -58,8 +62,11 @@ app.use('/api', authRoutes);
 const adminRoutes = require('./routes/admin.routes')
 app.use('/api', adminRoutes);
 
-// const index = require('./routes/index');
-// app.use('/', index);
+const delivererRoutes = require('./routes/deliverer.routes')
+app.use('/api', delivererRoutes);
+
+const orderRoutes = require('./routes/order.routes')
+app.use('/api', orderRoutes);
 
 
 module.exports = app;
