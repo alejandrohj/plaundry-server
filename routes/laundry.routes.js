@@ -18,6 +18,7 @@ router.get('/laundry', (req,res)=>{
       })
     })
 })
+
 router.post('/laundry/create',(req,res)=>{
   const {category,name,description,image,price} = req.body;
   LaundryModel.create({category,name,description,image,price})
@@ -32,6 +33,18 @@ router.post('/laundry/create',(req,res)=>{
     })
 })
 
+router.get('/laundry/:id', (req,res) => {
+  LaundryModel.findById(req.params.id)
+    .then((result) => {
+      res.status(200).json(result)
+    }).catch((err) => {
+      res.status(500).json({
+        error: 'Something went wrong',
+        message: err
+      })
+    });
+})
+
 router.post('/laundry/:id/edit',(req,res)=>{
   console.log('editing')
   let id = req.params.id;
@@ -41,6 +54,18 @@ router.post('/laundry/:id/edit',(req,res)=>{
       res.status(200).json(response)
     })
     .catch((err)=>{
+      res.status(500).json({
+        error: 'Something went wrong',
+        message: err
+      })
+    })
+})
+
+router.delete('/laundry/:id/delete', (req, res) => {
+  LaundryModel.findByIdAndDelete(req.params.id)
+    .then((result) => {
+      res.status(200).json(result)      
+    }).catch((err) => {
       res.status(500).json({
         error: 'Something went wrong',
         message: err

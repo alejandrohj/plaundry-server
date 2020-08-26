@@ -23,7 +23,7 @@ router.post('/order', (req, res) => {
       res.status(200).json(result)
     }).catch((err) => {
       res.status(500).json({
-        error: 'Somehting went wrong',
+        error: 'Something went wrong',
         message: err
       })
     });
