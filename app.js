@@ -11,6 +11,7 @@ const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
 const app = express();
 const cors = require('cors')
+require('./configs/database.config')
 
 app.use(session({
   secret: 'plaundry-project',
@@ -57,6 +58,9 @@ app.use('/api', authRoutes);
 
 const adminRoutes = require('./routes/admin.routes')
 app.use('/api', adminRoutes);
+
+const LaundryRoutes = require('./routes/laundry.routes')
+app.use('/api', LaundryRoutes);
 
 // const index = require('./routes/index');
 // app.use('/', index);
