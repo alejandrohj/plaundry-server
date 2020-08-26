@@ -68,5 +68,11 @@ app.use('/api', delivererRoutes);
 const orderRoutes = require('./routes/order.routes')
 app.use('/api', orderRoutes);
 
+const LaundryRoutes = require('./routes/laundry.routes')
+app.use('/api', LaundryRoutes);
+
+// const index = require('./routes/index');
+// app.use('/', index);
+
 
 module.exports = app;
