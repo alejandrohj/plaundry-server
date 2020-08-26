@@ -2,13 +2,13 @@ const {Schema,model} = require('mongoose');
 
 const OrderSchema = new Schema({
   userId: {
-    type: 'userId',
+    type: Schema.Types.ObjectId,
     ref: 'user'
   },
   order: [
     {
       laundryId: {
-        type: 'laundryId',
+        type: Schema.Types.ObjectId,
         ref: 'laundry'
       },
       quantity: Number

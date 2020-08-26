@@ -11,7 +11,6 @@ const session      = require('express-session');
 const MongoStore   = require('connect-mongo')(session);
 const app = express();
 const cors = require('cors')
-const cookieParser = require('cookie-parser');
 
 app.use(session({
   secret: 'plaundry-project',

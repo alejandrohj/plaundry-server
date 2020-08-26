@@ -11,7 +11,7 @@ const delivererSchema = new Schema(
       required: true
     },
     orderId: [{
-      type: Mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Order'
     }],
   },

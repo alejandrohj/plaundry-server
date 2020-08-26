@@ -20,7 +20,7 @@ const userSchema = new Schema(
     postalCode: String,
     city: String,
     orderHistory: [{
-      type: Mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'Order'
     }],
   },
