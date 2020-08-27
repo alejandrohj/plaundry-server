@@ -44,7 +44,8 @@ router.get('/laundry/:id', isLoggedIn, (req,res) => {
       })
     });
 })
-router.get('/laundry/categories/:category',(req,res)=>{
+
+router.get('/laundry/categories/:category', (req,res)=>{
   LaundryModel.find({category: req.params.category})
     .then((result)=>{
       res.status(200).json(result)
@@ -64,6 +65,7 @@ router.post('/laundry/:id/edit', isLoggedIn, (req,res)=>{
   LaundryModel.findByIdAndUpdate(id,{$set:{category: category, name: name, description: description, image: image, price:price}})
     .then((response)=>{
       res.status(200).json(response)
+      console.log(category)
     })
     .catch((err)=>{
       res.status(500).json({
