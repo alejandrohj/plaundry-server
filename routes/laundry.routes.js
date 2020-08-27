@@ -44,6 +44,18 @@ router.get('/laundry/:id', isLoggedIn, (req,res) => {
       })
     });
 })
+router.get('/laundry/categories/:category',(req,res)=>{
+  LaundryModel.find({category: req.params.category})
+    .then((result)=>{
+      res.status(200).json(result)
+    })
+    .catch((err) => {
+      res.status(500).json({
+        error: 'Something went wrong',
+        message: err
+      })
+    });
+})
 
 router.post('/laundry/:id/edit', isLoggedIn, (req,res)=>{
   console.log('editing')

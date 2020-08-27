@@ -20,12 +20,12 @@ const OrderSchema = new Schema({
     required: true
   },
   pickUp: {
-    Date: {type: Date, required: true},
-    Time: {type: String, required: true}
+    Date: {type: Date},
+    Time: {type: String}
   },
   delivery: {
-    Date: {type: Date, required: true},
-    Time: {type: String, required: true}
+    Date: {type: Date},
+    Time: {type: String}
   }
 })
 
