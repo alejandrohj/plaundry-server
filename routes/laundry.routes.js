@@ -19,7 +19,7 @@ router.get('/laundry', (req,res)=>{
     })
 })
 
-router.post('/laundry/create',(req,res)=>{
+router.post('/laundry/create', isLoggedIn, (req,res)=>{
   const {category,name,description,image,price} = req.body;
   LaundryModel.create({category,name,description,image,price})
     .then((response)=>{
@@ -33,7 +33,7 @@ router.post('/laundry/create',(req,res)=>{
     })
 })
 
-router.get('/laundry/:id', (req,res) => {
+router.get('/laundry/:id', isLoggedIn, (req,res) => {
   LaundryModel.findById(req.params.id)
     .then((result) => {
       res.status(200).json(result)
@@ -45,7 +45,7 @@ router.get('/laundry/:id', (req,res) => {
     });
 })
 
-router.post('/laundry/:id/edit',(req,res)=>{
+router.post('/laundry/:id/edit', isLoggedIn, (req,res)=>{
   console.log('editing')
   let id = req.params.id;
   const {category,name,description,image,price} = req.body;
@@ -61,7 +61,7 @@ router.post('/laundry/:id/edit',(req,res)=>{
     })
 })
 
-router.delete('/laundry/:id/delete', (req, res) => {
+router.delete('/laundry/:id/delete', isLoggedIn, (req, res) => {
   LaundryModel.findByIdAndDelete(req.params.id)
     .then((result) => {
       res.status(200).json(result)      
