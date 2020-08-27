@@ -120,8 +120,8 @@ router.post('/signin', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session.destroy();
-  res.status(204)
-    .send()
+  res.status(204).send()
+  console.log('succes')
 })
 
 router.get('/user', isLoggedIn, (req, res, next) => {

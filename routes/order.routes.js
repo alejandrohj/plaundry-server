@@ -3,8 +3,9 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const OrderModel = require('../models/order.model');
+const {isLoggedIn} = require('../helpers/auth-helper');
 
-router.get('/orders', (req, res) => {
+router.get('/orders', isLoggedIn, (req, res) => {
   OrderModel.find()
     .then((result) => {
       res.status().json(result)
@@ -16,7 +17,7 @@ router.get('/orders', (req, res) => {
     });
 })
 
-router.post('/order', (req, res) => {
+router.post('/order', isLoggedIn, (req, res) => {
   const {userId, order, pickUp, delivery} = req.body;
   OrderModel.create({userId, order, pickUp, delivery, status: 'to pick up'})
     .then((result) => {
@@ -29,7 +30,7 @@ router.post('/order', (req, res) => {
     });
 })
 
-router.post('/order/:id/edit', (req, res) => {
+router.post('/order/:id/edit', isLoggedIn, (req, res) => {
   const {status} = req.body
   OrderModel.findByIdAndUpdate(req.params.id, {$set: {status: status}})
     .then((result) => {
