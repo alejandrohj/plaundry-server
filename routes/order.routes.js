@@ -17,7 +17,8 @@ router.get('/orders', isLoggedIn, (req, res) => {
     });
 })
 
-router.post('/order', isLoggedIn, (req, res) => {
+router.post('/order', (req, res) => {
+  console.log(req.body)
   const {userId, order, pickUp, delivery} = req.body;
   OrderModel.create({userId, order, pickUp, delivery, status: 'to pick up'})
     .then((result) => {

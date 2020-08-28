@@ -1,5 +1,4 @@
 const isLoggedIn = (req, res, next) => {
-  console.log('Middleware', req.session)  
   if (req.session.loggedInUser) {
     next();
   }
