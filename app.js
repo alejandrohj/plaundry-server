@@ -71,4 +71,7 @@ app.use('/api', orderRoutes);
 const LaundryRoutes = require('./routes/laundry.routes')
 app.use('/api', LaundryRoutes);
 
+const fileUploads = require('./routes/file-upload.routes')
+app.use('/api', fileUploads);
+
 module.exports = app;

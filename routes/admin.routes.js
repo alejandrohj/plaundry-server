@@ -4,6 +4,7 @@ const bcrypt  = require('bcryptjs');
 
 const AdminModel = require('../models/Admin.model');
 
+
 router.post('/admin/signup', (req, res) => {
   const {email, password} = req.body;
 
