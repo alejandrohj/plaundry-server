@@ -74,4 +74,7 @@ app.use('/api', LaundryRoutes);
 const fileUploads = require('./routes/file-upload.routes')
 app.use('/api', fileUploads);
 
+const mapsRoutes = require('./routes/maps.routes');
+app.use('/api',mapsRoutes);
+
 module.exports = app;
