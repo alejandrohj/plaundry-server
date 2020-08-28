@@ -77,4 +77,7 @@ app.use('/api', fileUploads);
 const mapsRoutes = require('./routes/maps.routes');
 app.use('/api',mapsRoutes);
 
+const stripeRoutes = require('./routes/stripe.routes')
+app.use('/api', stripeRoutes);
+
 module.exports = app;
