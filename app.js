@@ -74,4 +74,7 @@ app.use('/api', LaundryRoutes);
 const fileUploads = require('./routes/file-upload.routes')
 app.use('/api', fileUploads);
 
+const stripeRoutes = require('./routes/stripe.routes')
+app.use('/api', stripeRoutes);
+
 module.exports = app;
