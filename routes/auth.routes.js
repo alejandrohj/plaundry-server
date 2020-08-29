@@ -127,11 +127,11 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/user', isLoggedIn, (req, res, next) => {
-  console.log('user', req.session.loggedInUser)
   res.status(200).json(req.session.loggedInUser);
 });
 
 router.post('/user/:id/edit', isLoggedIn, (req, res) => {
+  console.log('editing',req.body)
   const {firstName, lastName, address, postal, city} = req.body;
   UserModel.findByIdAndUpdate(req.params.id, {$set: {firstName, lastName, address, postal, city}})
     .then((user) => {
