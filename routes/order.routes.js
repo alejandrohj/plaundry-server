@@ -6,24 +6,29 @@ const OrderModel = require('../models/order.model');
 const {isLoggedIn} = require('../helpers/auth-helper');
 
 router.get('/orders', isLoggedIn, (req, res) => {
+  console.log('looking for')
   OrderModel.find()
+  .populate({
+    path:'orderItems.laundry'
+  })
   .populate('userId')
-  .populate('order')
     .then((result) => {
+      console.log('laubde', result)
       res.status(200).json(result)
-      console.log(result)
-    }).catch((err) => {
-      res.status(500).json({
-        error: 'Somehting went wrong',
-        message: err
-      })
-    });
+    })
 })
 
 router.post('/order', (req, res) => {
   const {userId, order, pickUp, delivery} = req.body;
-  console.log(req.body)
-  OrderModel.create({userId, order, pickUp, delivery, status: 'to pick up'})
+  let ordered = order.filter((elem)=>{
+    return elem.quantity>0
+  })
+  let orderedItems = ordered.map((elem)=>{
+    return {laundry : elem._id, quantityOflaundries: elem.quantity}
+  })
+  console.log(userId)
+  console.log('ordQuan',orderedItems)
+  OrderModel.create({userId, orderItems:orderedItems, pickUp, delivery, status: 'to pick up'})
     .then((result) => {
       res.status(200).json(result)
       console.log(result)

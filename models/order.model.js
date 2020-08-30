@@ -5,13 +5,14 @@ const OrderSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  order: [
+  orderItems: [
     {
-      laundryId: {
+      _id:false,
+      laundry : {
         type: Schema.Types.ObjectId,
         ref: 'laundry'
       },
-      quantity: Number
+        quantityOflaundries: Number
     }
   ],
   status: {
