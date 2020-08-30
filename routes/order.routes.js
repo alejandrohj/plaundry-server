@@ -7,8 +7,11 @@ const {isLoggedIn} = require('../helpers/auth-helper');
 
 router.get('/orders', isLoggedIn, (req, res) => {
   OrderModel.find()
+  .populate('userId')
+  .populate('order')
     .then((result) => {
       res.status(200).json(result)
+      console.log(result)
     }).catch((err) => {
       res.status(500).json({
         error: 'Somehting went wrong',
@@ -19,6 +22,7 @@ router.get('/orders', isLoggedIn, (req, res) => {
 
 router.post('/order', (req, res) => {
   const {userId, order, pickUp, delivery} = req.body;
+  console.log(req.body)
   OrderModel.create({userId, order, pickUp, delivery, status: 'to pick up'})
     .then((result) => {
       res.status(200).json(result)
