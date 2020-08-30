@@ -19,8 +19,11 @@ const LaundrySchema = new Schema({
   quantity:{
     type: Number,
     default: 0
+  }},
+  {
+    timestamps: true
   }
-})
+)
 
 let LaundryModel =  model('laundry', LaundrySchema);
 

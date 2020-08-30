@@ -27,8 +27,11 @@ const OrderSchema = new Schema({
   delivery: {
     Date: {type: Date},
     Time: {type: String}
+  }},
+  {
+    timestamps: true
   }
-})
+)
 
 let OrderModel =  model('order',OrderSchema);
 
