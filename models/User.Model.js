@@ -16,9 +16,15 @@ const userSchema = new Schema(
     },
     firstName: String,
     lastName: String,
-    address: String,
-    postalCode: String,
-    city: String,
+    address:{
+      address: String,
+      postalCode: String,
+      city: String,
+      coordinates:{
+        lat: Number,
+        lng: Number
+      }
+    },
     orderHistory: [{
       type: Schema.Types.ObjectId,
       ref: 'Order'

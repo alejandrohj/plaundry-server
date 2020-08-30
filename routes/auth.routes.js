@@ -132,8 +132,8 @@ router.get('/user', isLoggedIn, (req, res, next) => {
 
 router.post('/user/:id/edit', isLoggedIn, (req, res) => {
   console.log('editing',req.body)
-  const {firstName, lastName, address, postal, city} = req.body;
-  UserModel.findByIdAndUpdate(req.params.id, {$set: {firstName, lastName, address, postal, city}})
+  const {firstName, lastName, address} = req.body;
+  UserModel.findByIdAndUpdate(req.params.id, {$set: {firstName, lastName, address}})
     .then((user) => {
       res.status(200).json(user)
     }).catch((err) => {
