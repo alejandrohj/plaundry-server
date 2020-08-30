@@ -11,7 +11,7 @@ router.get('/laundry', (req,res)=>{
     })
     .catch((err)=>{
       res.status(500).json({
-        erro: 'Something went wrong',
+        error: 'No laundry-items to show',
         message: err
       })
     })
@@ -19,9 +19,38 @@ router.get('/laundry', (req,res)=>{
 
 router.post('/laundry/create', isLoggedIn, (req,res)=>{
   const {category,name,description,image,price} = req.body;
+  if(!name) {
+    res.status(500)
+    .json({
+      error: 'Please enter a name'
+    });
+  return;
+  }
+  if(!description) {
+    res.status(500)
+    .json({
+      error: 'Please enter a description'
+    });
+  return;
+  }
+  if(!price) {
+    res.status(500)
+    .json({
+      error: 'Please enter a price'
+    });
+  return;
+  }
+  if(category === 'Choose a category') {
+    res.status(500)
+    .json({
+      error: 'Please choose a category'
+    });
+  return;
+  }
+
   LaundryModel.create({category,name,description,image,price})
     .then((response)=>{
-      res.status(200).json(response)
+      res.status(200).json({response, message: 'Item created'})
     })
     .catch((err)=>{
       res.status(500).json({
@@ -32,8 +61,10 @@ router.post('/laundry/create', isLoggedIn, (req,res)=>{
 })
 
 router.get('/laundry/:id', isLoggedIn, (req,res) => {
+  console.log(req.params.id)
   LaundryModel.findById(req.params.id)
     .then((result) => {
+      console.log(result)
       res.status(200).json(result)
     }).catch((err) => {
       res.status(500).json({
@@ -59,10 +90,37 @@ router.get('/laundry/categories/:category', (req,res)=>{
 router.post('/laundry/:id/edit', isLoggedIn, (req,res)=>{
   let id = req.params.id;
   const {category,name,description,image,price} = req.body;
+  if(!name) {
+    res.status(500)
+    .json({
+      error: 'Please enter a name'
+    });
+  return;
+  }
+  if(!description) {
+    res.status(500)
+    .json({
+      error: 'Please enter a description'
+    });
+  return;
+  }
+  if(!price) {
+    res.status(500)
+    .json({
+      error: 'Please enter a price'
+    });
+  return;
+  }
+  if(category === 'Choose a category') {
+    res.status(500)
+    .json({
+      error: 'Please choose a category'
+    });
+  return;
+  }
   LaundryModel.findByIdAndUpdate(id,{$set:{category: category, name: name, description: description, image: image, price:price}})
     .then((response)=>{
-      res.status(200).json(response)
-      console.log(category)
+      res.status(200).json({response, message: 'Changes saved'})
     })
     .catch((err)=>{
       res.status(500).json({

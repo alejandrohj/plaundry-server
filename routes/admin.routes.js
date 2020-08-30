@@ -11,7 +11,7 @@ router.post('/admin/signup', (req, res) => {
   if (!email || !password) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter username, email and password'
+        error: 'Please enter email and password'
       });
     return;  
   }
@@ -20,7 +20,7 @@ router.post('/admin/signup', (req, res) => {
   if (!emailRegEx.test(email)) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter a valid email'
+        error: 'Please enter a valid email'
       })
     return;
   }
@@ -29,7 +29,7 @@ router.post('/admin/signup', (req, res) => {
   if (!passwordRegEx.test(password)) {
     res.status(500)
       .json({
-        errorMessage: 'Password must contain letter, uppercase letter, number and a special character, and needs to have 8 characters.'
+        error: 'Password must contain letter, uppercase letter, number and a special character, and needs to have 8 characters.'
       })
     return;
   }
@@ -49,14 +49,14 @@ router.post('/admin/signup', (req, res) => {
                 if (err.code === 11000) {
                   res.status(500)
                     .json({
-                      errorMessage: 'Username or email already exists!'
+                      error: 'Username or email already exists!'
                     });
                   return;  
                 } 
                 else {
                   res.status(500)
                     .json({
-                      errorMessage: 'Something went wrong!'
+                      error: 'Something went wrong!'
                     });
                   return; 
                 }
@@ -68,10 +68,18 @@ router.post('/admin/signup', (req, res) => {
 
 router.post('/admin/signin', (req, res) => {
   const {email, password} = req.body;
-  if (!email || !password) {
+  if (!email ) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter email and password'
+        error: 'Please enter your email '
+      });
+    return;
+  }
+
+  if (!password ) {
+    res.status(500)
+      .json({
+        error: 'Please enter your password'
       });
     return;
   }
@@ -80,7 +88,7 @@ router.post('/admin/signin', (req, res) => {
     if (!myRegex.test(email)) {
       res.status(500)
         .json({
-          error: 'Email format not correct',
+          error: 'Please enter a valid email',
         })
       return;  
     }
@@ -98,20 +106,20 @@ router.post('/admin/signin', (req, res) => {
             else {
               res.status(500)
                 .json({
-                  error: 'Password don\'t match, please try again'
+                  error: 'Password doesn\'t match, please try again'
                 })
               return;
             }
           }).catch(() => {
             res.status(500)
               .json({
-                error: 'Password not correct'
+                error: 'Password doesn\'t match, please try again'
               })
             return;
           });
       }).catch(() => {
         res.status(500).json({
-          error: 'Email not correct'
+          error: 'Email doesn\'t match, please try again'
         })
         return;
       });

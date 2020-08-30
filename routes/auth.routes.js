@@ -9,10 +9,26 @@ const { isLoggedIn } = require('../helpers/auth-helper');
 router.post('/signup', (req, res) => {
   const {username, email, password} = req.body;
 
-  if (!username || !email || !password) {
+  if (!username) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter username, email and password'
+        error: 'Please enter a username'
+      });
+    return;  
+  }
+
+  if (!email) {
+    res.status(500)
+      .json({
+        error: 'Please enter an email'
+      });
+    return;  
+  }
+
+  if (!password) {
+    res.status(500)
+      .json({
+        error: 'Please enter a password'
       });
     return;  
   }
@@ -21,7 +37,7 @@ router.post('/signup', (req, res) => {
   if (!emailRegEx.test(email)) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter a valid email'
+        error: 'Please enter a valid email'
       })
     return;
   }
@@ -30,7 +46,7 @@ router.post('/signup', (req, res) => {
   if (!passwordRegEx.test(password)) {
     res.status(500)
       .json({
-        errorMessage: 'Password must contain letter, uppercase letter, number and a special character, and needs to have 8 characters.'
+        error: 'Password must contain letter, uppercase letter, number and a special character, and needs to have 8 characters.'
       })
     return;
   }
@@ -50,14 +66,14 @@ router.post('/signup', (req, res) => {
                 if (err.code === 11000) {
                   res.status(500)
                     .json({
-                      errorMessage: 'Username or email already exists!'
+                      error: 'Username or email already exists!'
                     });
                   return;  
                 } 
                 else {
                   res.status(500)
                     .json({
-                      errorMessage: 'Something went wrong!'
+                      error: 'Something went wrong!'
                     });
                   return; 
                 }
@@ -69,10 +85,18 @@ router.post('/signup', (req, res) => {
 
 router.post('/signin', (req, res) => {
   const {email, password} = req.body;
-  if (!email || !password) {
+  if (!email) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter email and password'
+        error: 'Please enter your email'
+      });
+    return;
+  }
+
+  if (!password) {
+    res.status(500)
+      .json({
+        error: 'Please enter your password'
       });
     return;
   }
@@ -81,7 +105,7 @@ router.post('/signin', (req, res) => {
     if (!myRegex.test(email)) {
       res.status(500)
         .json({
-          error: 'Email format not correct',
+          error: 'Please enter a valid email',
         })
       return;  
     }
@@ -106,13 +130,13 @@ router.post('/signin', (req, res) => {
           }).catch(() => {
             res.status(500)
               .json({
-                error: 'Email not correct'
+                error: 'Password doesn\'t match, please try again'
               })
             return;
           });
       }).catch(() => {
         res.status(500).json({
-          error: 'Email not correct'
+          error: 'Email doesn\'t match, please try again'
         })
         return;
       });
@@ -138,7 +162,7 @@ router.post('/user/:id/edit', isLoggedIn, (req, res) => {
       res.status(200).json(user)
     }).catch((err) => {
       res.status(500).json({
-        error: 'Cannot update',
+        error: 'Cannot update user',
         message: err
       })
       return;
