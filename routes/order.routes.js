@@ -28,7 +28,7 @@ router.post('/order', (req, res) => {
   })
   console.log(userId)
   console.log('ordQuan',orderedItems)
-  OrderModel.create({userId, orderItems:orderedItems, pickUp, delivery, status: 'to pick up'})
+  OrderModel.create({userId, orderItems:orderedItems, pickUp:pickUp, delivery, status: 'to pick up'})
     .then((result) => {
       res.status(200).json(result)
       console.log(result)

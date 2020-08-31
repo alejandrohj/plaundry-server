@@ -20,14 +20,9 @@ const OrderSchema = new Schema({
     enum: ['to pick up', 'picked up', 'washing', 'to deliver', 'delivered'],
     required: true
   },
-  pickUp: {
-    Date: {type: Date},
-    Time: {type: String}
+  pickUp: String,
+  delivery: String
   },
-  delivery: {
-    Date: {type: Date},
-    Time: {type: String}
-  }},
   {
     timestamps: true
   }
