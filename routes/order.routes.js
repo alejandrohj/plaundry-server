@@ -42,6 +42,10 @@ router.post('/order', (req, res) => {
 
 router.get('/order/:id', isLoggedIn, (req,res) => {
   OrderModel.findById(req.params.id)
+  .populate({
+    path:'orderItems.laundry'
+  })
+  .populate('userId')
     .then((result) => {
       res.status(200).json(result)
     }).catch((err) => {
@@ -55,6 +59,10 @@ router.get('/order/:id', isLoggedIn, (req,res) => {
 router.post('/order/:id/edit', isLoggedIn, (req, res) => {
   const {status} = req.body
   OrderModel.findByIdAndUpdate(req.params.id, {$set: {status: status}})
+  .populate({
+    path:'orderItems.laundry'
+  })
+  .populate('userId')
     .then((result) => {
       res.status(200).json(result)
       console.log('changed order')
