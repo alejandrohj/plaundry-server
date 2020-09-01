@@ -10,7 +10,10 @@ const adminSchema = new Schema(
       type: String,
       required: true
     },
-    type: String,
+    type: {
+      type: String,
+      default: 'admin'
+    }
   },
   {
     timestamps: true

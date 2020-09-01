@@ -14,6 +14,10 @@ const delivererSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Order'
     }],
+    type: {
+      type: String,
+      default: 'deliverer'
+    }
   },
   {
     timestamps: true
