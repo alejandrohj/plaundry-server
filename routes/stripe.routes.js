@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 // This is your real test secret API key.
-const stripe = require("stripe")("sk_test_51HJbtACi0BSLj9s10pnUJXcWKEHQMLUdWKfTct3mc9sI3w0sCXgmEJC0RAdhX4PMioSg6EIH5wFuLLeWXZ4mgwo200suKKS9qY");
+const stripe = require("stripe")(process.env.STRIPE_SECRET);
 router.use(express.static("."));
 router.use(express.json());
 
@@ -24,10 +24,11 @@ router.post("/create-payment-intent", async (req, res) => {
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
     amount: calculateOrderAmount(items),
-    currency: "eur"
+    currency: "eur",
   });
   res.send({
-    clientSecret: paymentIntent.client_secret
+    clientSecret: paymentIntent.client_secret,
+    id: paymentIntent.id
   });
 });
 
