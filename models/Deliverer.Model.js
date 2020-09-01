@@ -12,7 +12,7 @@ const delivererSchema = new Schema(
     },
     orderId: [{
       type: Schema.Types.ObjectId,
-      ref: 'Order'
+      ref: 'order'
     }],
     type: {
       type: String,
