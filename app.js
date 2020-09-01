@@ -53,8 +53,6 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-// const index = require('./routes/index');
-// app.use('/', index);
 
 const authRoutes = require('./routes/auth.routes')
 app.use('/api', authRoutes);
