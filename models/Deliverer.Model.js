@@ -2,6 +2,10 @@ const {Schema, model} = require('mongoose');
 
 const delivererSchema = new Schema(
   {
+    username: {
+      type: String,
+      required: [true, 'Please enter username']
+    }, 
      email: {
       type: String,
       required: [true, 'Please enter email']
