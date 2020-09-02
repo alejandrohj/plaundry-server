@@ -153,4 +153,63 @@ router.delete('/deliverer/:id/delete', (req, res) => {
       })
     })
 })
+
+router.post('/deliverer/signin', (req, res) => {
+  const {email, password} = req.body;
+  if (!email ) {
+    res.status(500)
+      .json({
+        error: 'Please enter your email '
+      });
+    return;
+  }
+
+  if (!password ) {
+    res.status(500)
+      .json({
+        error: 'Please enter your password'
+      });
+    return;
+  }
+
+  const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
+    if (!myRegex.test(email)) {
+      res.status(500)
+        .json({
+          error: 'Please enter a valid email',
+        })
+      return;  
+    }
+
+    DelivererModel.findOne({email})
+      .then((user) => {
+        bcrypt.compare(password, user.passwordHash)
+          .then((matches) => {
+            if (matches) {
+              user.passwordHash = "***";
+              req.session.loggedInUser = user;
+              console.log('Signin succes!', req.session)
+              res.status(200).json(user);
+            }
+            else {
+              res.status(500)
+                .json({
+                  error: 'Password doesn\'t match, please try again'
+                })
+              return;
+            }
+          }).catch(() => {
+            res.status(500)
+              .json({
+                error: 'Password doesn\'t match, please try again'
+              })
+            return;
+          });
+      }).catch(() => {
+        res.status(500).json({
+          error: 'Email doesn\'t match, please try again'
+        })
+        return;
+      });
+})
 module.exports = router;
