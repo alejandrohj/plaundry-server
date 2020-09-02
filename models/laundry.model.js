@@ -8,7 +8,7 @@ const LaundrySchema = new Schema({
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   description: String,
   image: String,
@@ -25,6 +25,6 @@ const LaundrySchema = new Schema({
   }
 )
 
-let LaundryModel =  model('laundry', LaundrySchema);
+LaundrySchema.index({ 'name': 1}, {unique: true});
 
-module.exports = LaundryModel;
+module.exports = model('laundry', LaundrySchema);
