@@ -53,7 +53,6 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
-
 const authRoutes = require('./routes/auth.routes')
 app.use('/api', authRoutes);
 
@@ -77,5 +76,10 @@ app.use('/api',mapsRoutes);
 
 const stripeRoutes = require('./routes/stripe.routes')
 app.use('/api', stripeRoutes);
+
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;
