@@ -48,15 +48,26 @@ router.post('/laundry/create', isLoggedIn, (req,res)=>{
   return;
   }
 
+
   LaundryModel.create({category,name,description,image,price})
     .then((response)=>{
       res.status(200).json({response, message: 'Item created'})
     })
     .catch((err)=>{
-      res.status(500).json({
-        error: 'Something went wrong',
-        message: err
-      })
+      if (err.code === 11000) {
+        res.status(500)
+          .json({
+            error: 'Item-name already exists!'
+          });
+        return;  
+      } 
+      else {
+        res.status(500)
+          .json({
+            error: 'Something went wrong!'
+          });
+        return; 
+      }
     })
 })
 
