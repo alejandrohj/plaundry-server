@@ -21,7 +21,8 @@ const OrderSchema = new Schema({
     required: true
   },
   pickUp: String,
-  delivery: String
+  delivery: String,
+  message: String
   },
   {
     timestamps: true
