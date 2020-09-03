@@ -37,7 +37,7 @@ const UserSchema = new Schema(
   }
 );
 
-userSchema.index({ 'email': 1}, {unique: true});
-userSchema.index({ 'username': 1}, {unique: true});
+UserSchema.index({ 'email': 1}, {unique: true});
+UserSchema.index({ 'username': 1}, {unique: true});
 
 module.exports = model('User', UserSchema);

@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const bcrypt  = require('bcryptjs');
 
-const AdminModel = require('../models/admin.model');
+const AdminModel = require('../models/Admin.model');
 
 
 router.post('/admin/signup', (req, res) => {

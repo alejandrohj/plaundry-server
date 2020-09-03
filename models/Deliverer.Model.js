@@ -28,5 +28,5 @@ const DelivererSchema = new Schema(
   }
 );
 
-delivererSchema.index({ 'email': 1}, {unique: true});
+DelivererSchema.index({ 'email': 1}, {unique: true});
 module.exports = model('Deliverer', DelivererSchema);
