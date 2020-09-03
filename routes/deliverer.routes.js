@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
-const DelivererModel = require('../models/deliverer.model');
+const DelivererModel = require('../models/Deliverer.Model');
 
 
 router.post('/deliverer/create', (req, res) => {
@@ -58,6 +58,7 @@ router.post('/deliverer/create', (req, res) => {
                 res.status(200).json(deliverer);
               })
               .catch((err) => {
+                console.log('check', err.code)
                 if (err.code === 11000) {
                   res.status(500)
                     .json({
