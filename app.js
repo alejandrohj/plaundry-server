@@ -77,6 +77,9 @@ app.use('/api',mapsRoutes);
 const stripeRoutes = require('./routes/stripe.routes')
 app.use('/api', stripeRoutes);
 
+const availabilityRoutes = require('./routes/availability.routes')
+app.use('/api', availabilityRoutes);
+
 app.use((req, res, next) => {
   // If no routes match, send them the React HTML.
   res.sendFile(__dirname + "/public/index.html");

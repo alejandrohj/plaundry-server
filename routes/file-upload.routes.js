@@ -12,7 +12,7 @@ router.post('/upload', uploader.single("imageUrl"), (req, res, next) => {
         });
       next(new Error('No image uploaded!'));
       return;
-    }
+    } 
     res.json({ image: req.file.path });
 })
 
