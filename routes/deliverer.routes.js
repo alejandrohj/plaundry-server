@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
-const DelivererModel = require('../models/Deliverer.model');
+const DelivererModel = require('../models/Deliverer.Model');
 
 
 router.post('/deliverer/create', (req, res) => {
