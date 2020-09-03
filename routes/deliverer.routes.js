@@ -3,9 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const DelivererModel = require('../models/deliverer.model');
+const { isLoggedIn } = require('../helpers/auth-helper');
 
 
-router.post('/deliverer/create', (req, res) => {
+router.post('/deliverer/create',isLoggedIn, (req, res) => {
   const {username,email, password} = req.body;
   console.log(req.body)
   if (!username) {
@@ -129,7 +130,7 @@ router.post('/deliverer/signin', (req, res) => {
       });
 })
 
-router.get('/deliverers', (req,res)=>{
+router.get('/deliverers',isLoggedIn, (req,res)=>{
   DelivererModel.find()
     .then((deliverers)=>{
       res.status(200).json(deliverers)
@@ -142,7 +143,7 @@ router.get('/deliverers', (req,res)=>{
     })
 })
 
-router.delete('/deliverer/:id/delete', (req, res) => {
+router.delete('/deliverer/:id/delete',isLoggedIn, (req, res) => {
   DelivererModel.findByIdAndDelete(req.params.id)
     .then((result) => {
       res.status(200).json(result)      
@@ -152,64 +153,5 @@ router.delete('/deliverer/:id/delete', (req, res) => {
         message: err
       })
     })
-})
-
-router.post('/deliverer/signin', (req, res) => {
-  const {email, password} = req.body;
-  if (!email ) {
-    res.status(500)
-      .json({
-        error: 'Please enter your email '
-      });
-    return;
-  }
-
-  if (!password ) {
-    res.status(500)
-      .json({
-        error: 'Please enter your password'
-      });
-    return;
-  }
-
-  const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
-    if (!myRegex.test(email)) {
-      res.status(500)
-        .json({
-          error: 'Please enter a valid email',
-        })
-      return;  
-    }
-
-    DelivererModel.findOne({email})
-      .then((user) => {
-        bcrypt.compare(password, user.passwordHash)
-          .then((matches) => {
-            if (matches) {
-              user.passwordHash = "***";
-              req.session.loggedInUser = user;
-              console.log('Signin succes!', req.session)
-              res.status(200).json(user);
-            }
-            else {
-              res.status(500)
-                .json({
-                  error: 'Password doesn\'t match, please try again'
-                })
-              return;
-            }
-          }).catch(() => {
-            res.status(500)
-              .json({
-                error: 'Password doesn\'t match, please try again'
-              })
-            return;
-          });
-      }).catch(() => {
-        res.status(500).json({
-          error: 'Email doesn\'t match, please try again'
-        })
-        return;
-      });
 })
 module.exports = router;
