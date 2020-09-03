@@ -83,7 +83,7 @@ router.post('/deliverer/signin', (req, res) => {
   if (!email || !password) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter email and password'
+        error: 'Please enter email and password'
       });
     return;
   }
