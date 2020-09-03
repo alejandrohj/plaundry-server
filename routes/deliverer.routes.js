@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
-const DelivererModel = require('../models/deliverer.model');
 const { isLoggedIn } = require('../helpers/auth-helper');
+const DelivererModel = require('../models/Deliverer.Model');
 
 
 router.post('/deliverer/create',isLoggedIn, (req, res) => {
@@ -59,6 +59,7 @@ router.post('/deliverer/create',isLoggedIn, (req, res) => {
                 res.status(200).json(deliverer);
               })
               .catch((err) => {
+                console.log('check', err.code)
                 if (err.code === 11000) {
                   res.status(500)
                     .json({
@@ -84,7 +85,7 @@ router.post('/deliverer/signin', (req, res) => {
   if (!email || !password) {
     res.status(500)
       .json({
-        errorMessage: 'Please enter email and password'
+        error: 'Please enter email and password'
       });
     return;
   }

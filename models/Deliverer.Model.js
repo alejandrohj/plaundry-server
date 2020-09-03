@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose');
 
-const delivererSchema = new Schema(
+const DelivererSchema = new Schema(
   {
     username: {
       type: String,
@@ -28,5 +28,6 @@ const delivererSchema = new Schema(
   }
 );
 
-delivererSchema.index({ 'email': 1}, {unique: true});
-module.exports = model('Deliverer', delivererSchema);
+DelivererSchema.index({ 'username': 1}, {unique: true});
+DelivererSchema.index({ 'email': 1}, {unique: true});
+module.exports = model('Deliverer', DelivererSchema);
