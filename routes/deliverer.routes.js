@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
-const { isLoggedIn } = require('../helpers/auth-helper');
 const DelivererModel = require('../models/Deliverer.Model');
+const { isLoggedIn } = require('../helpers/auth-helper');
 
 
 router.post('/deliverer/create',isLoggedIn, (req, res) => {
